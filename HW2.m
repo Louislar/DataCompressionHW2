@@ -73,7 +73,7 @@ for i=1:64
     end
 end
 
-
+%開始做DC的differential coding, 以及AC的zip-zag
 
 %imgDCT=imgMinus128;
 %imgDCT=dct2(imgDCT);
