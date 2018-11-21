@@ -1,8 +1,10 @@
 % https://stackoverflow.com/questions/43127920/how-do-i-read-a-raw-rgb-image-in-matlab
 % https://www.mathworks.com/matlabcentral/answers/86889-open-a-24-bit-depth-interleaved-rgb-raw-file
+filepath='D:\HW\資料壓縮\HW2\TestImage\GrayImage\Lena.raw';
+filepath_home='E:\作業吧\資料壓縮\HW2\TestImage\GrayImage\Lena.raw';
 row=512;
 col=512;
-fid=fopen('D:\HW\資料壓縮\HW2\TestImage\GrayImage\Lena.raw', 'r');
+fid=fopen(filepath_home, 'r');
 img=fread(fid, [row, col], 'uint8');
 fclose(fid);
 img=img.';  %因為matlab fread讀出來會是一行一行的儲存, 所以需要transpose
@@ -67,13 +69,32 @@ for i=1:64
     for j=1:64
         temp8x8=img64x64x8x8(i, j, 1:8, 1:8);
         temp8x8=reshape(temp8x8, [8 8]);
-        temp8x8=dct2(temp8x8);
-        temp8x8=temp8x8./LuminanceQT;
+        temp8x8=dct2(temp8x8); %DCT
+        temp8x8=temp8x8./LuminanceQT; %quantization
         img64x64x8x8(i, j, :, :)=temp8x8;
     end
 end
 
 %開始做DC的differential coding, 以及AC的zip-zag
+DiffDC=zeros(64, 64);
+DiffDC(1, 1)=img64x64x8x8(1, 1, 1, 1);  %最左上角的block的DC不動
+%第一行底下DC減上面DC
+for i=2:64
+    if (i~=1)
+        DiffDC(i, 1)=img64x64x8x8(i, 1, 1, 1)-img64x64x8x8(i-1, 1, 1, 1);
+    end
+end
+%其他行是右邊DC減左邊DC 
+for i=1:64
+    for j=2:64
+        DiffDC(i, j)=img64x64x8x8(i, j, 1, 1)-img64x64x8x8(i, j-1, 1, 1);
+    end
+end
+
+%DC的differential coding做完了, 接著再用DC的hyffman table
+%把DC differential code轉成DC Code Word, 稱此process為VLC
+%另寫一個VLC(huffman table)的函數會比較好
+
 
 %imgDCT=imgMinus128;
 %imgDCT=dct2(imgDCT);
