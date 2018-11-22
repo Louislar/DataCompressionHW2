@@ -96,6 +96,9 @@ end
 %另寫一個VLC(huffman table)的函數會比較好
 
 
+%接著做AC的zig-zag, 以及接下來的runlength coding
+
+
 %imgDCT=imgMinus128;
 %imgDCT=dct2(imgDCT);
 imshow(imgDCT, 'DisplayRange', [0 255]);
