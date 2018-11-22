@@ -1,6 +1,6 @@
 # DataCompressionHW2
 實做jpeg壓縮程式
-能壓縮Lena.raw (graylevel)
+能壓縮Lena.raw (graylevel)\n
 進階(加分bonus): LenaRGB.raw (RGBRGB...)
 
 
