@@ -97,6 +97,15 @@ end
 
 
 %接著做AC的zig-zag, 以及接下來的runlength coding
+zigzagScan=zeros(64, 64, 63);
+for i=1:64
+    for j=1:64
+        zigzagScan(i, j, :)=zig_zag(reshape(img64x64x8x8(i, j, 1:8, 1:8), [8 8]));
+    end
+end
+%Run_length coding (未完成)
+Run_lengthCoding=zeros(1, 1);
+
 
 
 %imgDCT=imgMinus128;
