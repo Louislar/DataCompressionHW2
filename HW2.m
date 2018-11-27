@@ -94,7 +94,13 @@ end
 %DC的differential coding做完了, 接著再用DC的hyffman table
 %把DC differential code轉成DC Code Word, 稱此process為VLC
 %另寫一個VLC(huffman table)的函數會比較好
-
+VLC_DC=[];
+for i=1:64
+    for j=1:64
+        tempBitArray=DCCodeWord(DiffDC(i, j));
+        VLC_DC=[VLC_DC tempBitArray];
+    end
+end
 
 %接著做AC的zig-zag, 以及接下來的runlength coding
 zigzagScan=zeros(64, 64, 63);
