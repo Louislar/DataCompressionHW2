@@ -4,7 +4,7 @@ filepath='D:\HW\資料壓縮\HW2\TestImage\GrayImage\Lena.raw';
 filepath_home='E:\作業吧\資料壓縮\HW2\TestImage\GrayImage\Lena.raw';
 row=512;
 col=512;
-fid=fopen(filepath_home, 'r');
+fid=fopen(filepath, 'r');
 img=fread(fid, [row, col], 'uint8');
 fclose(fid);
 img=img.';  %因為matlab fread讀出來會是一行一行的儲存, 所以需要transpose
@@ -70,7 +70,7 @@ for i=1:64
         temp8x8=img64x64x8x8(i, j, 1:8, 1:8);
         temp8x8=reshape(temp8x8, [8 8]);
         temp8x8=dct2(temp8x8); %DCT
-        temp8x8=temp8x8./LuminanceQT; %quantization
+        temp8x8=fix(temp8x8./LuminanceQT); %quantization
         img64x64x8x8(i, j, :, :)=temp8x8;
     end
 end
