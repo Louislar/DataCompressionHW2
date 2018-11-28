@@ -1,6 +1,6 @@
 %DCCodeWord function
 %傳DC值進來, 傳進來的DC值為一個decimal
-%回傳對應的DC值是一個bit的array, 裡面只有0跟1
+%回傳對應的DCCodeword(DC編碼)值是一個bit的array, 裡面只有0跟1
 %DC code word = category code word + DIFF value code word
 %目前gray-level是用Luminance的table來做(不知道對不對)
 
