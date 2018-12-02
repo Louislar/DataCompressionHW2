@@ -11,3 +11,6 @@ DC huffman尚未完成
 2018/12/02
 AC huffman 可以參考以下網址
 ref: https://chu246.blogspot.com/2013/11/huffman-coding-for-dc-ac-coefficients.html?showComment=1543719986843#c6743466808323946866
+
+Decode 可以參考
+ref: https://stackoverflow.com/questions/1563883/decoding-a-jpeg-huffman-block-table
