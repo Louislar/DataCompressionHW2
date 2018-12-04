@@ -119,9 +119,25 @@ for i=1:64
     end
 end
 
+outputCode=[VLC_DC Run_lengthCoding];
+%補0
+if mod(length(outputCode), 8)~=0
+    for i=1:(8-mod(length(outputCode), 8))
+        outputCode=[outputCode 0];
+    end
+end
+result = [];
+%用成每8的bit合成1個byte輸出
+for i=1:8:length(outputCode)
+    temp=[];
+    for j=0:7
+        temp = [temp (outputCode(i+j)+48)];
+    end
+    result=[result bin2dec(char(temp))];
+end
 %寫出檔案
-fileID=fopen('jpegEncode.bin','w');
-fwrite(fileID,[1:9]);
+fileID=fopen('jpegEncode.txt','w');
+fwrite(fileID,result);
 fclose(fileID);
 
 

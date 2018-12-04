@@ -7,7 +7,7 @@
 function output=DCCodeWord(input)
 
 %紀錄傳進來的DC值的category(SSSS)
-category=0
+category=0;
 category_codeword=0;
 
 %判斷category
