@@ -109,9 +109,20 @@ for i=1:64
         zigzagScan(i, j, :)=zig_zag(reshape(img64x64x8x8(i, j, 1:8, 1:8), [8 8]));
     end
 end
-%Run_length coding (未完成)
-Run_lengthCoding=zeros(1, 1);
 
+%Run_length coding
+Run_lengthCoding=[];
+
+for i=1:64
+    for j=1:64
+        Run_lengthCoding=[Run_lengthCoding ACCodeWord( reshape(zigzagScan(i, j, 1:63), [1 63]) )];
+    end
+end
+
+%寫出檔案
+fileID=fopen('jpegEncode.bin','w');
+fwrite(fileID,[1:9]);
+fclose(fileID);
 
 
 %imgDCT=imgMinus128;

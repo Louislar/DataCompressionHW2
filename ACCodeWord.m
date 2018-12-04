@@ -1,15 +1,47 @@
 %ACCodeWord function
-%傳AC值進來, 傳進來的DC值為一個decimal
+%傳AC值進來, 傳進來的AC值為一個decimal
 %回傳對應的ACCodeword(AC編碼)值是一個bit的array, 裡面只有0跟1
 %AC code word =Run/Size code word + AC coefficient code word
 %注意: AC是一組數字傳進來, 前面的數字表示: 有幾個0在前面
 %後面的數字表示: 這些0後面接了哪一個非0的數
-%這裡預設傳入的input是一個1x2的array
+%這裡預設傳入的input是一個1x63的array
 
 function output=ACCodeWord(input)
 
+%處理AC zigzag完的63個數字組成的數列
+%需要把他們整理成兩個數一組的形式: <run, size>
+%1. 尋找最後一個非零值
+k=find(input, 1, 'last');
+if (isempty(k))
+    Run_lengthCoding=[1 0 1 0];
+end
+%若k不為0, 就開始按照順序走訪63個數字
+ZeroNum=0;
+outcode=[];
+for i=1:k
+    if input(i)~=0
+        outcode=[outcode ACRunSizeFunc([ZeroNum input(i)])];
+        ZeroNum=0;
+    elseif input(i)==0
+        if ZeroNum==15
+            outcode=[outcode ACRunSizeFunc([15 0])];
+        else
+            ZeroNum=ZeroNum+1;
+        end
+    end
+end
+%加上EOB
+outcode=[outcode [1 0 1 0]];
+output=outcode;
+
+
+
+
+function output=ACRunSizeFunc(input)
+
+
 %紀錄傳進來的AC值的category(SSSS)
-category=0
+category=0;
 category_codeword=0;
 
 %判斷category, AC是用第二個數字判斷category
@@ -66,4 +98,6 @@ runsizeCodeWord=[];
 %用huffman table找出code word
 runsizeCodeWord=ACHuffmanTable([run size]);
 
+
+output=[category_codeword runsizeCodeWord];
 

@@ -1,8 +1,10 @@
 %給run跟size, output AC coefficient code word
 %預設輸入是1x2的array => [Run, Size]
 %輸出是1xn的array
+% 0<=run<=15, 0<=size<=15
 
 function output=ACHuffmanTable(input)
+
 run=input(1);
 size=input(2);
 runsizeCodeWord=[];
@@ -24,144 +26,22 @@ codewordTable={
     [1 1 1 1  1 1 1 1  1 1 1 0  1 0 1 1] [1 1 1 1  1 1 1 1  1 1 1 0  1 1 0 0] [1 1 1 1  1 1 1 1  1 1 1 0  1 1 0 1] [1 1 1 1  1 1 1 1  1 1 1 0  1 1 1 0] [1 1 1 1  1 1 1 1  1 1 1 0  1 1 1 1] [1 1 1 1  1 1 1 1  1 1 1 1  0 0 0 0] [1 1 1 1  1 1 1 1  1 1 1 1  0 0 0 1] [1 1 1 1  1 1 1 1  1 1 1 1  0 0 1 0] [1 1 1 1  1 1 1 1  1 1 1 1  0 0 1 1] [1 1 1 1  1 1 1 1  1 1 1 1  0 1 0 0];
     [1 1 1 1  1 1 1 1  1 1 1 1  0 1 0 1] [1 1 1 1  1 1 1 1  1 1 1 1  0 1 1 0] [1 1 1 1  1 1 1 1  1 1 1 1  0 1 1 1] [1 1 1 1  1 1 1 1  1 1 1 1  1 0 0 0] [1 1 1 1  1 1 1 1  1 1 1 1  1 0 0 1] [1 1 1 1  1 1 1 1  1 1 1 1  1 0 1 0] [1 1 1 1  1 1 1 1  1 1 1 1  1 0 1 1] [1 1 1 1  1 1 1 1  1 1 1 1  1 1 0 0] [1 1 1 1  1 1 1 1  1 1 1 1  1 1 0 1] [1 1 1 1  1 1 1 1  1 1 1 1  1 1 1 0]};
 
-% if (run==0)
-%     if (size==0)    %EOB end of block
-%         runsizeCodeWord=[1 0 1 0];
-%     end
-%     if (size==1)  
-%         runsizeCodeWord=[0 0];
-%     end
-%     if (size==2)
-%         runsizeCodeWord=[0 1];
-%     end
-%     if (size==3)  
-%         runsizeCodeWord=[1 0 0];
-%     end
-%     if (size==4)  
-%         runsizeCodeWord=[1 0 1 1];
-%     end
-%     if (size==5)
-%         runsizeCodeWord=[1 1 0 1 0];
-%     end
-%     if (size==6)
-%         runsizeCodeWord=[1 1 1 1 0 0 0];
-%     end
-%     if (size==7)
-%         runsizeCodeWord=[1 1 1 1 1 0 0 0];
-%     end
-%     if (size==8)
-%         runsizeCodeWord=[1 1 1 1 1 1 0 1 1 0];
-%     end
-%     if (size==9)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 0 0 1 0];
-%     end
-%     if (size==10)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 0 0 1 1];
-%     end
-% end
-% 
-% if (run==1)
-%     if (size==1)    %EOB end of block
-%         runsizeCodeWord=[1 1 0 0];
-%     end
-%     if (size==2)
-%         runsizeCodeWord=[1 1 0 1 1];
-%     end
-%     if (size==3)  
-%         runsizeCodeWord=[1 1 1 1 0 0 1];
-%     end
-%     if (size==4)  
-%         runsizeCodeWord=[1 1 1 1 1 0 1 1 0];
-%     end
-%     if (size==5)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 0 1 1 0];
-%     end
-%     if (size==6)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 0 1 0 0];
-%     end
-%     if (size==7)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 0 1 0 1];
-%     end
-%     if (size==8)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0];
-%     end
-%     if (size==9)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1];
-%     end
-%     if (size==10)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 1 0 0 0];
-%     end
-% end
-% 
-% if (run==2)
-%     if (size==1)    %EOB end of block
-%         runsizeCodeWord=[1 1 1 0 0];
-%     end
-%     if (size==2)
-%         runsizeCodeWord=[1 1 1 1 1 0 0 1];
-%     end
-%     if (size==3)  
-%         runsizeCodeWord=[1 1 1 1 1 1 0 1 1 1];
-%     end
-%     if (size==4)  
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 0 1 0 0];
-%     end
-%     if (size==5)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 1 0 0 1];
-%     end
-%     if (size==6)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 1 0 1 0];
-%     end
-%     if (size==7)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 1 0 1 1];
-%     end
-%     if (size==8)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 1 1 0 0];
-%     end
-%     if (size==9)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 1 1 0 1];
-%     end
-%     if (size==10)
-%         runsizeCodeWord=[1 1 1 1 1 1 1 1 1 0 0 0 1 1 1 0];
-%     end
-% end
-% 
-% if (run==3)
-%     if (size==1)    %EOB end of block
-%         runsizeCodeWord=[1 1 1 0 1 0];
-%     end
-%     if (size==2)
-%         runsizeCodeWord=[1 1 1 1  1 0 1 1  1];
-%     end
-%     if (size==3)  
-%         runsizeCodeWord=[1 1 1 1  1 1 1 1  0 1 0 1];
-%     end
-%     if (size==4)  
-%         runsizeCodeWord=[1 1 1 1  1 1 1 1  1 0 0 0  1 1 1 1];
-%     end
-%     if (size==5)
-%         runsizeCodeWord=[1 1 1 1  1 1 1 1  1 0 0 1  0 0 0 0];
-%     end
-%     if (size==6)
-%         runsizeCodeWord=[1 1 1 1  1 1 1 1  1 0 0 1  0 0 0 1];
-%     end
-%     if (size==7)
-%         runsizeCodeWord=[1 1 1 1  1 1 1 1  1 0 0 1  0 0 1 0];
-%     end
-%     if (size==8)
-%         runsizeCodeWord=[1 1 1 1  1 1 1 1  1 0 0 1  0 0 1 1];
-%     end
-%     if (size==9)
-%         runsizeCodeWord=[1 1 1 1  1 1 1 1  1 0 0 1  0 1 0 0];
-%     end
-%     if (size==10)
-%         runsizeCodeWord=[1 1 1 1  1 1 1 1  1 0 0 1  0 1 0 1];
-%     end
-% end
 
+
+% EOB和16個0需要個別處理
 %兩種特例 ---> run/size == 0/0  or  15/0
 %                         <EOB>     <16個0>
+if (run==0 && size==0)
+    output=[1 0 1 0];
+    return;
+end
+if (run==15 && size==0)
+    output=[1 1 1 1  1 1 1 1  0 0 1];
+    return;
+end
 
+
+run=run+1;
 output=cell2mat(codewordTable(run, size));
 
-output=runsizeCodeWord;
+
