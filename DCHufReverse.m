@@ -16,7 +16,7 @@ outputDCValue=[];
 %一次讀進一個bit
 %一直到可以解出64個DIFF DC為止
 checkingBuf=[];
-while DCNum<64
+while DCNum<(64*64)
     %先解前面的category, 一次讀一個bit進來檢查
     %, 直到檢查到是哪個category為止
     
@@ -64,6 +64,7 @@ while DCNum<64
     %處理category有可能為0的情況
     if curCategory-1==0
         DIFFBuf=[0];
+        inputIndex=inputIndex+1;
     end
     %將Buffer裡面的bits轉成實際的數字, 也就是做過differential後的DC值
     %用來儲存得到的bits, 是string 的型態
@@ -75,27 +76,28 @@ while DCNum<64
     end
     %要確認string的第一個char是不是1, 如果不是1那他就是負的
     %他就要1轉0, 0轉1
+    strBits=strBits
     isNegetive=0;
-    if strBits(1)==0
-        isNegetive=1;
+    if strBits(1)=='0' & curCategory-1~=0
+        isNegetive=1
         for i=1:length(strBits)
-            if strBits(i)==0
-                strBits(i)=1;
+            if strBits(i)=='0'
+                strBits(i)='1';
             else
-                strBits(i)=0;
+                strBits(i)='0';
             end
         end
     end
     %再把string型態的bits轉成decimal
     %若之前確認其為負數, 就在轉為decimal時乘上負號
-    oneDIFF=bin2dec(strBits)
+    oneDIFF=bin2dec(strBits);
     if isNegetive==1
         oneDIFF=oneDIFF*(-1);
     end
     %最後把它加到output array裡面
     outputDCValue=[outputDCValue oneDIFF];
     
-    curCategory=curCategory
+    curCategory=curCategory;
     DCNum =DCNum+1;
 end
 output=outputDCValue;

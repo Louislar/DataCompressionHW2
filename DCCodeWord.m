@@ -67,18 +67,16 @@ if (category==0)
 end
 if (category>0)
     DIFFValueCodeWord=dec2bin(abs(input))-'0';
-    DIFFValueCodeWordSize=size(DIFFValueCodeWord);
+    DIFFValueCodeWordSize=length(DIFFValueCodeWord);
     %如果input value(diff value)是負的, 就要0轉1, 1轉0
     if (input<0)
         for i=1:DIFFValueCodeWordSize
-            if DIFFValueCodeWord(1, i)==1
-                DIFFValueCodeWord(1, i)=0;
-            end
-            if DIFFValueCodeWord(1, i)==0
-                DIFFValueCodeWord(1, i)=1;
+            if DIFFValueCodeWord(i)==1
+                DIFFValueCodeWord(i)=0;
+            else
+                DIFFValueCodeWord(i)=1;
             end
         end
     end
 end
-
 output=[category_codeword DIFFValueCodeWord];

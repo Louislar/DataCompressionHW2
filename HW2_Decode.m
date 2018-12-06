@@ -26,9 +26,25 @@ end
 % DC要對照huffman table轉成做完differential後的樣子
 % Encode的時候是DC(1, 1)~DC(64, 64)接著才是AC(1, 1)~AC(64, 64)
 
-%把DC轉回程還沒有做過huffman codeing的樣子
+%把DC轉回程還沒有做過huffman codeing的樣子, 並且轉回64x64
 inputIndex=0;
 [inputIndex, DCBeforeHuf]=DCHufReverse(bitStream); 
+DCBeforeHuf=reshape(DCBeforeHuf, [64, 64]);
+DCBeforeHuf=DCBeforeHuf.';
+
+%再把DC轉回成沒有做過DIFF的樣子
+DCBeforeDIFF=zeros(64, 64);
+DCBeforeDIFF(1, 1)=DCBeforeHuf(1, 1);
+for i=2:64
+    DCBeforeDIFF(i, 1)=DCBeforeHuf(i, 1)+DCBeforeDIFF(i-1, 1);
+end
+for i=1:64
+    for j=2:64
+        DCBeforeDIFF(i, j)=DCBeforeHuf(i, j)+DCBeforeDIFF(i, j-1);
+    end
+end
+
+%開始做AC的反huffman table
 
 
 
