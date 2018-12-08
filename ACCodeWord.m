@@ -14,6 +14,8 @@ function output=ACCodeWord(input)
 k=find(input, 1, 'last');
 if (isempty(k))
     Run_lengthCoding=[1 0 1 0];
+    output=Run_lengthCoding;
+    return;
 end
 %若k不為0, 就開始按照順序走訪63個數字
 ZeroNum=0;
@@ -25,6 +27,7 @@ for i=1:k
     elseif input(i)==0
         if ZeroNum==15
             outcode=[outcode ACRunSizeFunc([15 0])];
+            ZeroNum=0;
         else
             ZeroNum=ZeroNum+1;
         end
@@ -98,6 +101,23 @@ runsizeCodeWord=[];
 %用huffman table找出code word
 runsizeCodeWord=ACHuffmanTable([run size]);
 
+%前面是Run/Size code word, 後面是AC coefficient code word
+%Run/Size code word可由上一個式子藉由huffman table得到
+%AC coefficient code word則需要透過把非0的那個數換算成二進位得出
+%所以現在要計算AC coefficient code word
+%先轉成binary(取絕對值)的array
+ACCoefCodeWord=dec2bin(abs(input(2)))-'0';
+%依據正負決定要不要0轉1, 1轉0
+if input(2)<0
+    for i=1:length(ACCoefCodeWord)
+        if ACCoefCodeWord(i)==1
+            ACCoefCodeWord(i)=0;
+        else
+            ACCoefCodeWord(i)=1;
+        end
+    end
+end
 
-output=[category_codeword runsizeCodeWord];
+
+output=[runsizeCodeWord ACCoefCodeWord];
 

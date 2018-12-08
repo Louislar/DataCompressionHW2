@@ -44,7 +44,9 @@ for i=1:64
     end
 end
 
+
 %開始做AC的反huffman table
+[ACBeforeRunSize, inputIndex]=ACHufReverse(bitStream, inputIndex);
 
 
 

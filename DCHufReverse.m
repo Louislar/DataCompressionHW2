@@ -76,10 +76,9 @@ while DCNum<(64*64)
     end
     %要確認string的第一個char是不是1, 如果不是1那他就是負的
     %他就要1轉0, 0轉1
-    strBits=strBits
     isNegetive=0;
     if strBits(1)=='0' & curCategory-1~=0
-        isNegetive=1
+        isNegetive=1;
         for i=1:length(strBits)
             if strBits(i)=='0'
                 strBits(i)='1';

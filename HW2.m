@@ -4,7 +4,7 @@ filepath='D:\HW\資料壓縮\HW2\TestImage\GrayImage\Lena.raw';
 filepath_home='E:\作業吧\資料壓縮\HW2\TestImage\GrayImage\Lena.raw';
 row=512;
 col=512;
-fid=fopen(filepath, 'r');
+fid=fopen(filepath_home, 'r');
 img=fread(fid, [row, col], 'uint8');
 fclose(fid);
 img=img.';  %因為matlab fread讀出來會是一行一行的儲存, 所以需要transpose
@@ -140,7 +140,3 @@ fileID=fopen('jpegEncode.txt','w');
 fwrite(fileID,result);
 fclose(fileID);
 
-
-%imgDCT=imgMinus128;
-%imgDCT=dct2(imgDCT);
-imshow(imgDCT, 'DisplayRange', [0 255]);
