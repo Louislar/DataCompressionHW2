@@ -106,6 +106,6 @@ outputJindex=outputJindex+1;
 %第62格
 output(1, outputJindex)=input(8, 7);
 outputJindex=outputJindex+1;
-%第62格
+%第63格
 output(1, outputJindex)=input(8, 8);
 outputJindex=outputJindex+1;
